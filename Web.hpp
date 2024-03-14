@@ -6,7 +6,6 @@ class Web{
 
 	public:
      	Web(WebServer &server);
-
      	void handleRoot();
 		void titlePage(const String title);
 		void dispInt(unsigned value);
