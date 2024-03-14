@@ -9,25 +9,34 @@ WebServer server(80);
 Web pagi(server);
 
 void setup() {
-	Serial.begin(115200);
-	WiFi.begin(ssid, password);
+    Serial.begin(115200);
+    WiFi.begin(ssid, password);
 
-	while(WiFi.status() != WL_CONNECTED){
-		delay(500);
-		Serial.println("Conectando...");
-	}
-	Serial.println("Conectado a rede!");
-	server.on("/", HTTP_GET, [](){
-		pagi.handleRoot();
-	});
-	server.begin();
-	Serial.println("HTTP server started");
-	Serial.print("IP: ");
-	Serial.println(WiFi.localIP());
+    while(WiFi.status() != WL_CONNECTED){
+        delay(500);
+        Serial.println("Conectando...");
+    }
+    Serial.println("Conectado a rede!");
 
+    server.on("/", HTTP_GET, [](){
+        pagi.handleRoot();
+    });
+
+    server.on("/t", HTTP_GET, [](){
+        pagi.formXHTML("MULTIPLICATION");
+    });
+
+    server.on("/calc", HTTP_GET, [](){ // Define a rota /calc/Att%20N
+        pagi.calc();
+    });
+
+    server.begin();
+    Serial.println("HTTP server started");
+    Serial.print("IP: ");
+    Serial.println(WiFi.localIP());
 }
+
 
 void loop() {
 	server.handleClient();
-
 }
