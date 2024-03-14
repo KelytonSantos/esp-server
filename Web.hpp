@@ -14,6 +14,7 @@ class Web{
 		void formXHTML(String action);
 		void calc();
      	~Web();
+	
 	private:
 		WebServer	&serv;
 
